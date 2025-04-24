@@ -4,7 +4,25 @@
 #Precisa da virtual env
 #pip install fastapi uvicorn pydantic 
 #pip freeze > requeriments.txt
+#O pydantic com o fast api e o post é feito com uma estrutura  em json, as api convertem ele em um objeto 
+#uvicorn main:app ele não recarrega automaticamente
+#http://127.0.0.1:8000/docs 
 
+from fastapi import FastAPI
+from models import Tarefa
+from typing import List
 
+app = FastAPI()
+
+tarefas:List[Tarefa]=[] #Vai ser uma lista tipada, ou seja : -> Significa o tipo da variavel ou seja essa variavel so aceita o tipo tarefa
+
+@app.get("/tarefas/", response_model=List[Tarefa]) #ele vai retorna uma lista de tarefas
+def listar_tarefas():
+    return tarefas #Retorna a variavel tarefas
+
+@app.post("/tarefas/", response_model=Tarefa) #Cadastra tarefa
+def criar_tarefa(tarefa:Tarefa):#tem que ser compativel com um que voce passa
+    tarefas.append(tarefa)
+    return tarefa
 
 
