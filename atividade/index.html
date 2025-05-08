@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="titulo">
+       <h1>Gerenciador de Tarefas</h1>
+    </div>
+    <div class="titulo"> 
+        <button onclick="AparecerTarefa()" class="botao">Nova Tarefa</button>
+    </div>
+    <form action="" method="post" class="tar-form">
+        <div class="modal">
+            <div class="titulo">
+                <h2>Cadastro Tarefas</h2>
+            </div>
+            <div class="inputs">
+                <label for="titulo">Título:</label>
+                <input type="text" name="titulo" id="tar-titulo">
+            </div>
+            <div class="inputs">
+                <label for="descricao">Descrição:</label>
+                <textarea name="descricao" id="tar-descricao"></textarea>
+            </div>
+            <div class="div-status">
+                <div>
+                    <label for="status">Status:</label>
+                </div>
+                <div>
+                    <input type="radio" class="opcoes" name="status" value="pendente" checked> Pendente
+                    <input type="radio" class="opcoes" name="status" value="concluido"> Concluída
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="cadastrar" class="botao">
+            </div>
+        </div>
+    </form>
+    <div class="tarefas">
+        <div class="tarefa">
+            <div class="div-esquerda">
+                <h3>id - titulo </h3>
+                <p>
+                   Descrição 
+                </p>
+            </div>
+            <div class="div-direita">
+                <p>status:</p>
+                <span class="status">
+                    concluido
+                </span>
+            </div>
+            <button class="botao">deletar</button>
+        </div>
+    </div>
+    <script>
+        function AparecerTarefa(){
+            let form = document.getElementsByClassName("tar-form")[0]
+            if (form.style.display == "flex") {
+                form.style.display = "none";
+            }
+            else {
+                form.style.display = "flex";
+            }
+            
+        }
+
+        $(".tar-form").submit(function(event){
+            event.preventDefault();
+
+            const titulo = $("#tar-titulo").val();
+            const descricao = $("#tar-descricao").val();
+            const status = $("input[name='status']:checked").val();
+
+            const novaTarefa = {
+                titulo: titulo,
+                descricao: descricao,
+                status: status
+        };
+
+        $.ajax(
+            {
+                url: "http://127.0.0.1:8000/tarefas/",
+                method: "post",
+                contentType: "application/json",
+                data: JSON.stringify(novaTarefa),
+                success: function(response) {
+                    alert("Tarefa cadastrada!")
+                    console.log("success:", response);
+                    location.reload(); 
+                },
+    
+                error: function(response) {
+                    alert("Erro ao cadastrar tarefa!")
+                    console.log("error:", response);
+                },
+            }
+        )
+
+        }
+    );
+
+    </script>
+</body>
+</html>
