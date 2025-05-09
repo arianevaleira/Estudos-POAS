@@ -6,6 +6,8 @@
 
 body{
     background-color: #fcdcb3;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 125vh;
 }
 
 h1{
@@ -85,22 +87,77 @@ textarea{
 }
 
 
-.tarefa{
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+.tarefas {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 10px;
+}
+
+.tarefa {
     background-color: #f88d87;
+    color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 250px;
-    height: 350px;
+    justify-content: space-between;
+    width: 280px;
+    min-height: 200px;
     border-radius: 15px;
-    margin: 5px;
-    padding: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
-.tarefas{
-    margin-top: 55px;
+.tarefa:hover {
+    transform: scale(1.02);
+}
+
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 
+.cadastro{
+    padding: 11px;
+    width: 350px;
+    border-radius: 27px;
+    cursor: pointer;
+    margin-top: 19px;
+}
+
+.meio{
+    display: flex;
+    justify-content: center;
+}
+
+
+.status-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.status-options input[type="radio"] {
+    display: none;
+}
+
+.status-label {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #d65981;
+    border: 2px solid #d65981;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.status-options input[type="radio"]:checked + .status-label {
+    background-color: #d65981;
+    color: #fff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
