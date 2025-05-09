@@ -14,33 +14,36 @@
     <div class="titulo"> 
         <button onclick="AparecerTarefa()" class="botao">Nova Tarefa</button>
     </div>
-    <form action="" method="post" class="tar-form">
-        <div class="modal">
-            <div class="titulo">
-                <h2>Cadastro Tarefas</h2>
-            </div>
-            <div class="inputs">
-                <label for="titulo">Título:</label>
-                <input type="text" name="titulo" id="tar-titulo">
-            </div>
-            <div class="inputs">
-                <label for="descricao">Descrição:</label>
-                <textarea name="descricao" id="tar-descricao"></textarea>
-            </div>
-            <div class="div-status">
-                <div>
+    <div class="meio">    
+        <form action="" method="post" class="tar-form">
+            <div class="modal">
+                <div class="titulo">
+                    <h2>Cadastro Tarefas</h2>
+                </div>
+                <div class="inputs">
+                    <label for="titulo">Título:</label>
+                    <input type="text" name="titulo" id="tar-titulo">
+                </div>
+                <div class="inputs">
+                    <label for="descricao">Descrição:</label>
+                    <textarea name="descricao" id="tar-descricao"></textarea>
+                </div>
+                <div class="div-status">
                     <label for="status">Status:</label>
-                </div>
+                    <div class="status-options">
+                        <input type="radio" id="pendente" name="status" value="pendente" checked>
+                        <label for="pendente" class="status-label">Pendente</label>
+                
+                        <input type="radio" id="concluido" name="status" value="concluido">
+                        <label for="concluido" class="status-label">Concluída</label>
+                    </div>
+                </div>                            
                 <div>
-                    <input type="radio" class="opcoes" name="status" value="pendente" checked> Pendente
-                    <input type="radio" class="opcoes" name="status" value="concluido"> Concluída
+                    <input type="submit" value="cadastrar" class="botao cadastro">
                 </div>
             </div>
-            <div>
-                <input type="submit" value="cadastrar" class="botao">
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
     <div class="tarefas">
         <div class="tarefa">
             <div class="div-esquerda">
