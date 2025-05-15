@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from models import Usuario, Livro, LivroCreate, Biblioteca, Emprestimo
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
-
+#import uuid
+#from sqlmodel import Field, Session, SQLModel, create_engine, select implementar o banco 
 app = FastAPI()
 
 
@@ -14,15 +15,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# usuários:
+
 usuarios: List[Usuario] = []
+
 @app.get("/usuarios/", response_model=List[Usuario])
 def listar_usuarios():
     return usuarios
 
 @app.post("/usuarios/", response_model=Usuario)
 def criar_usuario(usuario:Usuario):
-    usuario.id = len(usuarios) + 1
+    usuario.id = usuarios[-1] + 1 
     usuarios.append(usuario)
     return usuario
 
@@ -34,13 +36,43 @@ def excluir_usuario(usu_id:int):
             return usuario
     raise HTTPException(status_code=404, detail="Não localizado")
 
-
-# livros:
 livros: List[Livro] = []
+
 @app.get("/livros/", response_model=List[Livro])
 def listar_livros():
     return livros
 
+#@app.post('livros')
+#def cadastrar_livro(livro:livro):
+#    livro.uuid = uuid.uuid4()
+#    acervo.append(livro)
+#    return livro
+
+#@app.get('/livros', response_model=List[Livro])
+#def listar_livros():
+#    return acervo
+# ir fazendo rota por rota 
+
+
+#app.post('/emprestimo', response_model=Emprestimo)
+#def emprestimo(usuario:str, livro:str, data_emprestimo:str, )
+#user = none 
+# book = none 
+#for u in usuarios:
+#    if u.uuid == usuario: 
+#       user = u 
+# for l in acervo:
+#         
+#    if l.uuid == livro:
+#       book = 1 
+# dados = {
+#    'usuarios': user, 
+#     'livro': book,
+#     'emprestimo':data_emprestimo,
+#     'devolucao': data_devolucao
+# }
+#emprestimo=Emprestimo(**dados)
+#emprestimos.append(emprestimo)
 @app.post("/livros/", response_model=Livro)
 def criar_livro(livro:LivroCreate):
     novo_livro = Livro(
@@ -49,9 +81,9 @@ def criar_livro(livro:LivroCreate):
         ano=livro.ano,
         edicao=livro.edicao
     )
-
     livros.append(novo_livro)
     return novo_livro
+print(livros)
 
 @app.delete("/livros/{liv_id}", response_model=Livro)
 def excluir_livro(liv_id:int):
@@ -61,10 +93,8 @@ def excluir_livro(liv_id:int):
             return livro
     raise HTTPException(status_code=404, detail="Não localizado")
 
-
-
-# biblioteca: 
 bibliotecas: List[Biblioteca] = []
+
 @app.get("/biblioteca/", response_model=List[Biblioteca])
 def listar_bibliotecas():
     return bibliotecas
@@ -83,19 +113,15 @@ def excluir_biblioteca(biblioteca_id:int):
             return biblioteca
     raise HTTPException(status_code=404, detail="Não localizado")
 
-
-
-
-
-# empréstimmos: 
 emprestimos: List[Emprestimo] = []
+
 @app.get("/emprestimos/", response_model=List[Emprestimo])
 def listar_emprestimos():
     return emprestimos
 
 @app.post("/emprestimos/", response_model=Emprestimo)
 def criar_emprestimo(emprestimo:Emprestimo):
-    emprestimo.id = len(emprestimos) + 1
+    emprestimo.id = emprestimos[-1] +1
     emprestimos.append(emprestimo)
     return emprestimo
 
