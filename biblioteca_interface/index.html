@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Biblioteca</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navegacao">
+    <div class="logo">
+      <h1 class="titulo">Biblioteca</h1>
+    </div>
+    <div>
+      <input type="search" name="pesquisar" placeholder="Procurar Livro..." />
+    </div>
+  </nav>
+
+   <div class="conteudo">
+        <div class="cadastrar">
+            <h2>Cadastrar Livro</h2>
+            <label>Título:</label>
+            <input type="text" class="entrada inp" />
+            <label>Autor:</label>
+            <input type="text" class="entrada inp" />
+            <div class="datas">
+            <label>Ano:</label>
+            <input type="date" class="entrada inp" />
+            <label>Disponibilidade:</label>
+            <input type="text" class="entrada inp" />
+            </div>
+            <div class="botao">
+            <button class="bnt">Cadastrar Livro</button>
+            </div>
+        </div>
+
+        
+        <div class="cadastrar">
+            <h2>Buscar Livro por Título</h2>
+            <label>Digite o título:</label>
+            <input type="text" class="entrada inp" placeholder="Título do Livro" />
+            <div class="botao">
+            <button class="bnt">Buscar</button>
+            </div>
+        </div>
+
+
+        <div class="cadastrar">
+            <h2>Cadastrar Novo Usuário</h2>
+            <label>Nome:</label>
+            <input type="text" class="entrada inp" placeholder="Nome completo" />
+            <!-- <label>Email:</label> max disse que pode ser que sim, mas ele não apoia
+            <input type="email" class="entrada inp" placeholder="usuario@email.com" /> -->
+            <div class="botao">
+            <button class="bnt">Cadastrar Usuário</button>
+            </div>
+        </div>
+
+        <div class="cadastrar">
+            <h2>Realizar Empréstimo</h2>
+            <label>UUID do Usuário:</label>
+            <input type="text" class="entrada inp" />
+            <label>UUID do Livro:</label>
+            <input type="text" class="entrada inp" />
+            <label>Data do Empréstimo:</label>
+            <input type="date" class="entrada inp" />
+            <div class="botao">
+            <button class="bnt">Registrar Empréstimo</button>
+            </div>
+        </div>
+
+
+        <div class="livros">
+            <div class="livro">
+            <div class="div-esquerda">
+                <h3>id - título</h3>
+                <p>Autor:</p>
+            </div>
+            <div class="div-direita">
+                <p>Status:</p>
+                <span class="status">Disponível</span>
+            </div>
+            <button class="bnt">Deletar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
