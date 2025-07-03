@@ -21,7 +21,7 @@ def menu():
     print('5 - Sair')
     return int(input('Digite sua escolha: '))
 
-opcao = menu
+opcao = menu()
 
 
 while opcao != 5:
