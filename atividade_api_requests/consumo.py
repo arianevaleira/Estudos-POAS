@@ -42,13 +42,7 @@ def editar_livros(titulo):
         'edicao': edicao
     }
 
-    if r.status_code == 200:
-        print('Atualizado com sucesso')
-    elif r.status_code == 404:
-        print(r.text)
-
-
-    r = requests.put(f'{URL}/livros/{titulo}', json=livro)
+    r = requests.put(f'{URL}/livros', json=livro)
     
 
 
