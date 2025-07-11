@@ -2,6 +2,7 @@ from typing import List,Annotated
 from sqlmodel import SQLModel,Session,create_engine,select
 from fastapi import FastAPI,Depends
 from models import Aluno
+from models import Professor
 from contextlib import asynccontextmanager
 
 url = "sqlite:///banco.db"
@@ -58,3 +59,18 @@ def atualizar(session:SessionDep, id:int, nome:str) -> Aluno:
     session.add(aluno)
     session.commit()
     return aluno
+
+
+#Cadastrar professores 
+@app.post("/professores")
+def cadastrar(session:SessionDep, professor:Professor) -> Professor:
+    session.add(professor)
+    session.commit()
+    session.refresh(professor)
+    return professor
+
+
+@app.get("/professores")
+def listar(session:SessionDep) -> List[Professor]:
+    professor = session.exec(select(Professor)).all()
+    return professor
