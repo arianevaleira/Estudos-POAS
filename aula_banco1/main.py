@@ -40,3 +40,12 @@ def cadastrar(session:SessionDep, aluno:Aluno) -> Aluno:
     session.commit()
     session.refresh(aluno)
     return aluno
+
+
+@app.delete("/alunos/{id}")
+def deletar(session:SessionDep, id:int) -> str:
+    consulta = select(Aluno).where(Aluno.id== id)
+    aluno = session.exec(consulta).one()
+    session.delete(aluno)
+    session.commit()
+    return "Aluno excluido com sucesso"
