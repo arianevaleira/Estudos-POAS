@@ -49,3 +49,12 @@ def deletar(session:SessionDep, id:int) -> str:
     session.delete(aluno)
     session.commit()
     return "Aluno excluido com sucesso"
+
+@app.put("/alunos/{id}")
+def atualizar(session:SessionDep, id:int, nome:str) -> Aluno:
+    consulta = select(Aluno).where(Aluno.id== id)
+    aluno = session.exec(consulta).one()
+    aluno.nome = nome   
+    session.add(aluno)
+    session.commit()
+    return aluno
