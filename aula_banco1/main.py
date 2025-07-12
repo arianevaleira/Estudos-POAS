@@ -17,7 +17,7 @@ def get_session(): #Onde eu abro o canal de comunicação, exemplo quando boto a
     with Session(engine) as session:
         yield session
 
-SessionDep = Annotated[Session, Depends(get_session)] #
+SessionDep = Annotated[Session, Depends(get_session)] 
 
 def get_create_db(): #Verifica se o banco existe 
     SQLModel.metadata.create_all(engine)
@@ -73,4 +73,22 @@ def cadastrar(session:SessionDep, professor:Professor) -> Professor:
 @app.get("/professores")
 def listar(session:SessionDep) -> List[Professor]:
     professor = session.exec(select(Professor)).all()
+    return professor
+
+
+@app.delete("/professores/{id}")
+def deletar(session:SessionDep, id:str) -> str:
+    consulta = select(Professor).where(Professor.id== id)
+    professor = session.exec(consulta).one()
+    session.delete(professor)
+    session.commit()
+    return "Professor excluido com sucesso"
+
+@app.put("/professores/{id}")
+def atualizar(session:SessionDep, id:str, nome:str) -> Professor:
+    consulta = select(Professor).where(Professor.id== id)
+    professor = session.exec(consulta).one()
+    professor.nome = nome   
+    session.add(professor)
+    session.commit()
     return professor
