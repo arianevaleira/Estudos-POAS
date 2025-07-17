@@ -14,11 +14,18 @@ def get_session():
     with Session(engine) as session:
         yield session
 
+# Criação da tabela ao iniciar
+@app.on_event("startup")
 def on_startup():
     SQLModel.metadata.create_all(engine)
 
-# Endpoint para retornar pedidos
+# Endpoint com paginação
 @app.get("/pedidos", response_model=List[Pedido])
-def listar_pedidos(session: Session = Depends(get_session)):
-    pedidos = session.exec(select(Pedido)).all()
+def listar_pedidos(
+    limit: int = 100,
+    offset: int = 0,
+    session: Session = Depends(get_session)
+):
+    query = select(Pedido).offset(offset).limit(limit)
+    pedidos = session.exec(query).all()
     return pedidos

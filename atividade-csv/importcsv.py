@@ -19,5 +19,7 @@ def importar_csv():
     with Session(engine) as session:
         session.add_all(pedidos)
         session.commit()
-        
-importar_csv()
+
+# Executar importação
+if __name__ == "__main__":
+    importar_csv()
