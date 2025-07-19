@@ -1,25 +1,27 @@
-import csv
-from sqlmodel import Session
+from sqlmodel import SQLModel, Session, create_engine
 from models import Pedido
-from main import engine
+import csv
 
-def importar_csv():
-    with open("pedidos.csv", encoding="utf-8") as file:
-        reader = csv.DictReader(file, delimiter=';')
-        pedidos = []
+url = "sqlite:///banco.db"
 
-        for row in reader:
-            pedido = Pedido(
-                id=int(row["Pedido"]),
-                protocolo_pedido=row["ProtocoloPedido"],
-                esfera=row["Esfera"]
-            )
-            pedidos.append(pedido)
+engine = create_engine(url)
 
-    with Session(engine) as session:
-        session.add_all(pedidos)
-        session.commit()
+def create_banco():
+    SQLModel.metadata.create_all(engine)
 
-# Executar importação
-if __name__ == "__main__":
-    importar_csv()
+def load_data():
+    with open("pedidos.csv", "r", encoding="utf-8") as file:
+        cfile = csv.DictReader(file, delimiter=";")
+        for row in cfile:
+            with Session(engine) as session:
+                p = Pedido(
+                    IdPedido= row["IdPedido"],
+                    protocolo= row["ProtocoloPedido"],
+                    esfera=row["Esfera"],
+                    uf=row["UF"]
+                )
+                session.add(p)
+                session.commit()
+
+create_banco()
+load_data()
